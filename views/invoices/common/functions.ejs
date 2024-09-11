@@ -1,0 +1,100 @@
+<%
+
+    meterType = function(){
+        return [
+        "Meter Type",
+        "Meter Group",
+        "Begin Meter",
+        "End Meter",
+        "Total",
+        "Covered",
+        "Billable",
+        "Rate",
+        "Overage",
+        ]
+    }
+
+    assetHeader = function(){
+        return ["Number", "Serial Number", "Base Adj.", "Location"]
+    };
+
+    convertTime = function(inputTime, time = true) {
+        const inputDate = new Date(inputTime);
+
+        // Format date
+        const formattedDate = `${(inputDate.getMonth() + 1)
+            .toString()
+            .padStart(2, "0")}/${inputDate
+            .getDate()
+            .toString()
+            .padStart(2, "0")}/${inputDate.getFullYear()}`;
+
+        // Format time
+        if (time) {
+            const hours = inputDate.getHours() % 12 || 12; // Convert to 12-hour format
+            const formattedTime = `${hours.toString().padStart(2, "0")}:${inputDate
+            .getMinutes()
+            .toString()
+            .padStart(2, "0")}:${inputDate.getSeconds().toString().padStart(2, "0")} 
+                                ${inputDate.getHours() >= 12 ? "PM" : "AM"}`;
+
+            return `${formattedDate} ${formattedTime}`;
+        }
+        return formattedDate;
+    }
+
+    addTrailingZerosRate = function(number) {
+    // Convert the number to a string
+    const numberString = number.toString();
+    
+    // Check if the number has a decimal point
+    if (numberString.includes(".")) {
+    const [integerPart, decimalPart] = numberString.split(".");
+    
+    // Add trailing zeros to the decimal part if needed
+    const formattedDecimalPart = decimalPart.padEnd(4, "0").slice(0, 4);
+    
+    // Join the integer and formatted decimal parts with a dot
+    return `${integerPart}.${formattedDecimalPart}`;
+    } else {
+    // If there is no decimal point, add '.00'
+    return `${number}.0000`;
+    }
+    }
+
+    addTrailingZeros = function(number) {
+        // Convert the number to a string
+        const numberString = number.toString();
+
+        // Check if the number has a decimal point
+        if (numberString.includes(".")) {
+            const [integerPart, decimalPart] = numberString.split(".");
+
+            // Add trailing zeros to the decimal part if needed
+            const formattedDecimalPart = decimalPart.padEnd(2, "0").slice(0, 2);
+
+            // Join the integer and formatted decimal parts with a dot
+            return `${integerPart}.${formattedDecimalPart}`;
+        } else {
+            // If there is no decimal point, add '.00'
+            return `${number}.00`;
+        }
+    }    
+
+    convertDateFormat = function(inputDate) {
+        const dateObject = new Date(inputDate);
+
+        // Check if the inputDate is a valid date
+        if (isNaN(dateObject.getTime())) {
+            return "Invalid date";
+        }
+
+        // Format the date into "YYYY-MM-DD" format
+        const year = dateObject.getFullYear();
+        const month = String(dateObject.getMonth() + 1).padStart(2, "0");
+        const day = String(dateObject.getDate()).padStart(2, "0");
+
+        const formattedDate = inputDate ? `${month}/${day}/${year}` : null;
+        return formattedDate;
+    }
+%>

@@ -1,0 +1,164 @@
+<div style="margin: 5px 0px 0px 0px;">
+    <table style="width: 100%; border: 1px solid black; border-collapse: collapse;">
+        <tr>
+            <% include("./functions.ejs") %>
+                <% FormHead().forEach(it=> { %>
+                    <th style="border: 1px solid black; padding: 8px; text-align: left;">
+                        <%= it %>
+                    </th>
+                    <% }); %>
+        </tr>
+        <tr style="width: 100%">
+            <td style="padding: 8px; text-align: left;">B/W</td>
+            <% const formatDate=(dateString)=> {
+                if (!dateString) return "";
+                const date = new Date(dateString);
+                return date.toLocaleDateString('en-GB'); // 'en-GB' formats the date as dd/mm/yyyy
+                };
+                %>
+                <td style="padding: 8px; text-align: left;">
+                    <%= formatDate(ticket?.meterReading?.createdAt) ?? "" %>
+                </td>
+                <td style="padding: 8px; text-align: left;">
+                    <%= ticket?.meterReading?.color ?? "" %>
+                </td>
+                <td style="padding: 8px; text-align: left;">
+                    <%= ticket?.meterReading?.mono ?? "" %>
+                </td>
+        </tr>
+    </table>
+    <div class="space-between-text">
+        <div style="border: 1px solid black; width: 80%;">
+            <table>
+                <tr>
+                    <th>Work Performed:</th>
+                    <td>
+                        <%= ticket?.workPerformed %>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div style="width: 20%;">
+            <div>
+                <input type="checkbox" id="PM-Performed" />
+                <label for="PM-Performed">PM Performed</label>
+            </div>
+
+            <div>
+                <input type="checkbox" id="On-Site" />
+                <label for="On-Site">On Site</label>
+            </div>
+
+            <div>
+                <input type="checkbox" id="Shop" />
+                <label for="Shop">Shop</label>
+            </div>
+
+            <p style="font-weight: bold; margin: 0px;">Call Status</p>
+            <div>
+                <input type="checkbox" id="Complete" />
+                <label for="Complete">Complete</label>
+            </div>
+
+            <div>
+                <input type="checkbox" id="Incomplete" />
+                <label for="Incomplete">Incomplete</label>
+            </div>
+
+            <div>
+                <input type="checkbox" id="Need-Parts" />
+                <label for="Need-Parts">Need Parts</label>
+            </div>
+        </div>
+    </div>
+    <div class="space-between-text">
+        <table style="width: 20%;">
+            <tr>
+                <th colspan="2" style="text-align: center;">Parts Used/Needed</th>
+            </tr>
+            <tr>
+                <td>
+                    <% include("./functions.ejs") %>
+                        <% getItems(ticket.items)?.forEach((it, ind)=> { %>
+                            <div>
+                                <input type="checkbox" id="Installed-<%= ind %>" />
+                                <label for="Installed-<%= ind %>">Installed</label>
+                            </div>
+                            <% }); %>
+
+                </td>
+                <td>
+                    <% include("./functions.ejs") %>
+                        <% getItems(ticket.items)?.forEach((it, ind)=> { %>
+                            <div>
+                                <input type="checkbox" id="Order-<%= ind %>" />
+                                <label for="Order-<%= ind %>">Order</label>
+                            </div>
+                            <% }); %>
+                </td>
+            </tr>
+        </table>
+        <table class="border">
+            <tr>
+                <% include("./functions.ejs") %>
+                    <% ItemFormHead().forEach(it=> { %>
+                        <th>
+                            <%= it %>
+                        </th>
+                        <% }); %>
+            </tr>
+            <% getItems(ticket.items)?.forEach(it=> { %>
+                <tr>
+                    <% if (it.name) { %>
+                        <td>
+                            <%= it.name %>
+                        </td>
+                        <% } else { %>
+                            <td>&nbsp;</td>
+                            <% } %>
+                                <td></td>
+                                <td>
+                                    <%= it.quantity %>
+                                </td>
+                                <td></td>
+                                <td></td>
+                </tr>
+                <% }); %>
+        </table>
+    </div>
+    <div class="space-between-text">
+        <div style="width: 70%;">
+            <div style="border: 1px solid black; height: 100px;">
+                <table>
+                    <tr>
+                        <th>Comments</th>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+            <table class="signature">
+                <tr>
+                    <th style="white-space: nowrap;">Customer Signature</th>
+                    <td style="border-bottom: 1px solid black; width: 100%;">&nbsp;</td>
+                </tr>
+                <tr>
+                    <th style="white-space: nowrap;">Technician Signature</th>
+                    <td style="border-bottom: 1px solid black;">&nbsp;</td>
+                </tr>
+            </table>
+        </div>
+        <div style="width: 30%;">
+            <table class="border height-100">
+                <% include("./functions.ejs") %>
+                    <% Parts().forEach(it=> { %>
+                        <tr>
+                            <th style="width: 50%; text-align: end;">
+                                <%= it %>
+                            </th>
+                            <td style="width: 50%;">&nbsp;</td>
+                        </tr>
+                        <% }); %>
+            </table>
+        </div>
+    </div>
+</div>

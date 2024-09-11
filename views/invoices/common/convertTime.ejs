@@ -1,0 +1,27 @@
+<%
+    convertTime = function(inputTime, time = true) {
+        const inputDate = new Date(inputTime);
+
+        // Format date
+        const formattedDate = `${(inputDate.getMonth() + 1)
+            .toString()
+            .padStart(2, "0")}/${inputDate
+            .getDate()
+            .toString()
+            .padStart(2, "0")}/${inputDate.getFullYear()}`;
+
+        // Format time
+        if (time) {
+            const hours = inputDate.getHours() % 12 || 12; // Convert to 12-hour format
+            const formattedTime = `${hours.toString().padStart(2, "0")}:${inputDate
+            .getMinutes()
+            .toString()
+            .padStart(2, "0")}:${inputDate.getSeconds().toString().padStart(2, "0")} 
+                                ${inputDate.getHours() >= 12 ? "PM" : "AM"}`;
+
+            return `${formattedDate} ${formattedTime}`;
+        }
+        return formattedDate;
+    }
+   
+%>

@@ -1,0 +1,71 @@
+<div class="print-info-section">
+    <div class="print-info-section-left">
+      <div>
+        <h3 class="company-name">
+          <%= customer?.company?.name %>
+        </h3>
+        <div>
+          <p class="print-header">
+            <%= customer?.company?.address+ ", " +customer?.company?.postCode %>
+          </p>
+        </div>
+        <p class="print-header">
+          <%= customer?.company?.phoneNumber %>
+        </p>
+      </div>
+      <div>
+        <table>
+          <tr>
+            <th>Bill To:</th>
+            <td>
+              <%= customer?.name %>
+            </td>
+          </tr>
+        </table>
+        <p style="margin: 0;">
+          <%= customer?.billingAddress %>
+        </p>
+      </div>
+    </div>
+    <div class="print-info-section-right">
+      <div>
+        <h3 style="text-align: right; font-weight: bold;">
+          SERVICE INVOICE
+        </h3>
+        <table>
+          <tr>
+            <th>Invoice Number:</th>
+            <td>
+              <%= invoiceNo %>
+            </td>
+          </tr>
+          <tr>
+            <th>Invoice Date:</th>
+            <td>
+              <% include("../common/functions.ejs") %>
+              <%= convertTime(createdAt) %>
+            </td>
+          </tr>
+          <tr>
+            <th>Account Number:</th>
+            <td>
+              <%= customer.accountNumber %>
+            </td>
+          </tr>
+          <tr>
+            <% include("../common/functions.ejs") %>
+            <th>Balance Due:</th>
+            <td>$<%= addTrailingZeros(metaTotal?.balanceDue ?? 0) %>
+            </td>
+            </td>
+          </tr>
+          <tr>
+            <th>Customer:</th>
+            <td>
+              <%= customer.name + " " + customer.billingAddress %>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>

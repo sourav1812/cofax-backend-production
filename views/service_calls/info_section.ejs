@@ -1,0 +1,161 @@
+<div class="print-info-section">
+    <div class="print-info-section-left">
+        <h3 style="font-weight: bold;">
+            <%= ticket?.asset?.customer?.company?.name %>
+        </h3>
+        <div>
+            <p class="print-header">
+                <%= ticket?.asset?.customer?.company?.address %>
+            </p>
+        </div>
+        <p class="print-header">
+            <%= ticket?.asset?.customer?.company?.phoneNumber %>
+        </p>
+        <div style="margin-bottom: 10px;">
+            <table>
+                <tr>
+                    <th>Customer:</th>
+                    <td>
+                        <%= ticket?.asset?.customer.name %>
+                    </td>
+                </tr>
+            </table>
+            <p style="margin-bottom: 10px;">
+                <%= ticket?.billingAddress || ticket?.asset?.customer.billingAddress %>
+            </p>
+        </div>
+        <table>
+            <tr>
+                <th>Requested by:</th>
+                <td>
+                    <%= ticket?.requestedBy || "__________" %>
+                </td>
+            </tr>
+            <tr>
+                <th>Requested Received: </th>
+                <td>
+                    <% include("./functions.ejs") %>
+                        <%= convertTime(ticket?.createdAt) %>
+                </td>
+            </tr>
+            <tr>
+                <th>Asset Contact: </th>
+                <td>
+                    <%= ticket?.asset?.assetContact %>
+                </td>
+            </tr>
+            <tr>
+                <th>Contact Phone: </th>
+                <td>
+                    <%= ticket?.asset?.customer.phoneNumber %>
+                </td>
+            </tr>
+            <tr>
+                <th>Service Call Type: </th>
+                <td>
+                    <% include("./functions.ejs") %>
+                        <%= getName(serviceTypes, ticket?.serviceTypeId) %>
+                </td>
+            </tr>
+        </table>
+        <div style="border: 1px solid black; height: 100px;">
+            <table>
+                <tr>
+                    <th>Description:</th>
+                    <td>
+                        <%= ticket?.description %>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="print-info-section-right">
+        <h3 style="text-align: right; font-weight: bold; margin-right: 10px">
+            Service Call Ticket
+        </h3>
+        <table>
+            <tr>
+                <th>Work Order No:</th>
+                <td>
+                    <%= ticket?.workOrder %>
+                </td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <th>Service Call No:</th>
+                <td>
+                    <%= ticket?.serviceCall %>
+                </td>
+            </tr>
+            <tr>
+                <th>Technician: </th>
+                <td>
+                    <%= ticket?.technician?.firstName ? ticket?.technician?.firstName + " " +
+                        ticket?.technician?.lastName : ticket?.technician?.username %>
+                </td>
+            </tr>
+            <tr>
+                <th>Asset No: </th>
+                <td>
+                    <%= ticket?.asset?.assetNumber %>
+                </td>
+            </tr>
+            <tr>
+                <th>Contact Phone: </th>
+                <td>
+                    <%= ticket?.asset?.customer?.phoneNumber %>
+                </td>
+            </tr>
+            <tr>
+                <th>Serial No: </th>
+                <td>
+                    <%= !ticket?.asset?.serialNo || ticket?.asset?.serialNo=="unknown" ? "" : ticket?.asset?.serialNo %>
+                </td>
+            </tr>
+            <tr>
+                <th>Model: </th>
+                <td>
+                    <%= ticket?.asset?.model %>
+                </td>
+            </tr>
+            <tr>
+                <th>Location: </th>
+                <td>
+                    <%= ticket?.shippingAddress || ticket?.asset?.customer?.shippingAddress %>
+                </td>
+            </tr>
+        </table>
+        <table style="margin: 10px 0px;">
+            <tr>
+                <th>Location Note: </th>
+                <td>
+                    <%= ticket?.locationNote %>
+                </td>
+            </tr>
+        </table>
+        <table style="margin: 10px 0px;">
+            <tr>
+                <th>Call Due By:</th>
+                <td>
+                    <% include("./functions.ejs") %>
+                        <%= convertTime(ticket?.callDueBy) %>
+                </td>
+            </tr>
+            <tr>
+                <th>Contract Perioid: </th>
+                <td>
+                    <% include("./functions.ejs") %>
+                        <%= convertTime(ticket?.asset?.startDate, false) + " - " + convertTime(ticket?.asset?.endDate,
+                            false) %>
+                </td>
+            </tr>
+            <tr>
+                <th>Contract Type: </th>
+                <td>
+                    <%= ticket?.asset?.billCode?.name %>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

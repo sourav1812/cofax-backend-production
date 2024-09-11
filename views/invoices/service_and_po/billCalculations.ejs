@@ -1,0 +1,125 @@
+<div>
+  <p style="font-weight: bold; font-size: 16px; margin: 0;">Summary:</p>
+  <ol style="list-style: none;">
+    <li>
+      <div style="display: flex; justify-content: space-between;">
+        <p style="margin: 0;">
+          <% include("../common/functions.ejs") %>
+          <%= `Contract base rate charge for the ${convertDateFormat(createdAt)} to ${convertDateFormat(dueDate)} billing period` %>
+        </p>
+        <p style="margin: 0;">
+          <% const totalContractAmount = assets.reduce((accumulator, currentValue) => accumulator + (currentValue.asset.contractAmount || 0), 0); %>
+          $<%= addTrailingZeros(totalContractAmount) %>
+        </p>
+      </div>
+    </li>
+    <li>
+      <div style="display: flex; justify-content: space-between;">
+        <p style="margin: 0;">
+          <% include("../common/functions.ejs") %>
+          <%= `Contract overage charge for the ${convertDateFormat(createdAt)} to ${convertDateFormat(dueDate)} overage period` %>
+        </p>
+        <p style="margin: 0;">$<%= addTrailingZeros(metaTotal?.totalOverage) %></p>
+      </div>
+    </li>
+  </ol>
+</div>
+
+<div>
+  <p style="font-weight: bold; font-size: 16px; margin: 0;">Detail:</p>
+  <ul style="list-style: none; background-color: lightgray; font-weight: bold;">
+    <li>Equipment included under this contract</li>
+  </ul>
+</div>
+
+<% assets?.forEach((assetAndMeterReading, idx) => { %>
+  <p style="margin: 0; font-weight: bold; font-size: 18px;">
+    <%= assetAndMeterReading?.asset?.model %>
+  </p>
+  <table style="width: 100%;border-collapse: collapse;">
+    <thead>
+      <tr>
+        <% include("../common/functions.ejs") %>
+        <% assetHeader().forEach(it => { %>
+          <th class="text-left">
+            <%= it %>
+          </th>
+        <% }); %>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= assetAndMeterReading?.asset.assetNumber %></td>
+        <td><%= assetAndMeterReading?.asset?.serialNo %></td>
+        <td>
+          <% include("../common/functions.ejs") %>
+          $<%= addTrailingZeros(assetAndMeterReading?.asset?.baseAdj) %>
+        </td>
+        <td><%= customer.shippingAddress %></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table style="width: 100%; margin: 20px 0px; border-collapse: collapse;">
+    <thead>
+      <tr>
+        <% include("../common/functions.ejs") %>
+        <% meterType().forEach((it, ind) => { %>
+          <th key="<%= ind %>" class="<%= ind === 8 ? 'text-right' : 'text-left' %>">
+            <%= it %>
+          </th>
+        <% }); %>
+      </tr>
+    </thead>
+    <tbody>
+      <% assetAndMeterReading?.meterReading?.readings?.forEach(it => { %>
+        <tr>
+          <td><%= it?.meterType %></td>
+          <td><%= it?.meterGroup %></td>
+          <td><%= it?.BeginMeter %></td>
+          <td><%= it?.EndMeter %></td>
+          <td><%= it?.billable %></td>
+          <td><%= it?.covered %></td>
+          <td><%= it?.billable %></td>
+          <td>
+            <% include("../common/functions.ejs") %>
+            $<%= addTrailingZerosRate(it.rate) %>
+          </td>
+          <td style="text-align: right; padding-right: 10px;">
+            <% include("../common/functions.ejs") %>
+            $<%= addTrailingZeros(it?.overage) %>
+          </td>
+        </tr>
+      <% }); %>
+      <tr>
+        <td style="padding-right: 10px;">Total Overage:</td>
+        <td colspan="9" style="text-align: right; padding-right: 10px;">
+          <% include("../common/functions.ejs") %>
+          $<%= addTrailingZeros(assetAndMeterReading?.meterReading?.totalOverage) %>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding-right: 10px;">Rental Charge:</td>
+        <td colspan="9" style="text-align: right; padding-right: 10px;">
+          <% include("../common/functions.ejs") %>
+          $<%= addTrailingZeros(assetAndMeterReading?.asset?.rentalCharge) %>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding-right: 10px;">Contract:</td>
+        <td colspan="9" style="text-align: right; padding-right: 10px;">
+          <% include("../common/functions.ejs") %>
+          $<%= addTrailingZeros(assetAndMeterReading?.asset?.contractAmount) %>
+        </td>
+      </tr>
+      <tr>
+        <td style="padding-right: 10px;">Subtotal:</td>
+        <td colspan="9" style="text-align: right; padding-right: 10px;">
+          <% include("../common/functions.ejs") %>
+          $<%= addTrailingZeros(assetAndMeterReading?.meterReading?.subTotal) %>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+<% }); %>
+</div>

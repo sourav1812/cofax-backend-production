@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../common/head.ejs'); %>
+    <style>
+        @media print {
+          body,
+          html {
+            transform-origin: left;
+            transform: scale(0.98);
+            overflow: visible;
+          }
+  
+          .pdf-container {
+            page-break-inside: avoid;
+            overflow: visible;
+            width: 100%;
+          }
+  
+          @page {
+            size: letter;
+            margin-left: 10mm;
+          }
+        }
+      </style>
+</head>
+<body class="pdf-container">
+    <div class="">
+        <%- include('./header.ejs'); %>
+        <%- include('./body.ejs') %>
+    </div>
+    <div>
+        <%- include('./footer.ejs'); %>
+    </div>
+
+    <noscript>Sorry, your browser does not support JavaScript!</noscript>
+</body>
+</html>

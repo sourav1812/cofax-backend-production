@@ -1,0 +1,178 @@
+<meta charset="UTF-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+html {
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+body{
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  margin: 0px;
+}
+.pdf-container {
+  height: 100vh;
+  padding: 0px 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+  .custom-selector {
+  position: relative;
+}
+
+.company-name{
+  font-weight: bold;
+}
+
+.bg-light-gray{
+  background-color: lightgray;
+}
+
+.noWrapText {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.print-header {
+  display: block;
+  all: unset;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0px;
+}
+
+.space-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+.space-between-text {
+  display: flex;
+  justify-content: space-between;
+  height: 100%;
+  margin: 10px 0px;
+  gap: 20px;
+}
+
+th {
+  text-wrap: nowrap;
+  padding-right: 10px;
+  vertical-align: top;
+}
+
+.border {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.border th,
+.border td {
+  border-collapse: collapse;
+  border: 1px solid black;
+}
+
+
+.signature td,
+.signature th {
+  padding-top: 10px;
+}
+
+.print-info-section {
+  display: flex;
+  gap: 30px;
+  justify-content: space-between;
+  position: relative;
+}
+
+.print-info-section-left {
+  width: 55%;
+  position: relative;
+}
+
+.print-info-section-left th{
+  text-align: start;
+}
+
+.print-info-section-right {
+  width: 45%;
+}
+
+.print-info-section-right th {
+  text-align: end;
+}
+
+.billBox {
+  padding: 4px;
+  border: 1px solid black;
+  width: 300px;
+  margin-left: auto;
+  margin-bottom: 10px;
+}
+
+.billBox th {
+  text-align: end;
+  padding-left: 10px;
+  width: 50%;
+}
+
+.billBox td {
+  text-align: end;
+  width: 50%;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.flex-row-sbw {
+  display: flex;
+  justify-content: space-between;
+}
+
+.text-right{
+  border-bottom: 1px solid black;
+  text-align: right;
+}
+
+.text-left{
+  border-bottom: 1px solid black;
+  text-align: left;
+}
+
+ol, ul, dl{
+  margin-top: 0;
+}
+
+th,td{
+  font-size: 14px;
+}
+
+p{
+  font-size: 14px;
+}
+
+.remark{
+  text-align: center;
+   font-weight: bold;
+}
+
+.cell-bottom-none td {
+  border-bottom: none;
+  border-top: none;
+}
+
+.cell-bottom-none:last-child {
+  border-bottom: 1px solid black;
+}
+
+
+.height-100 {
+  height: 100%;
+  width: 100%;
+}
+
+</style>

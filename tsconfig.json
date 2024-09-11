@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "target": "es6",
+    "moduleResolution": "node",
+    "strictPropertyInitialization": false,
+    "sourceMap": true,
+    "outDir": "./dist",
+    "strict": true,
+    "rootDir": "./",
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "allowJs": true
+  },
+  "lib": ["es2015"],
+  "include": ["./**/*", "./**/*.json"],
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts",
+    "package.json",
+    "package-lock.json",
+    "tsconfig.json"
+  ]
+}

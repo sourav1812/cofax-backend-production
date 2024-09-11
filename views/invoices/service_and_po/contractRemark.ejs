@@ -1,0 +1,48 @@
+<div>
+  <table class="border" style="margin: 20px 0px 10px;">
+    <thead style="background-color: lightgray;">
+      <tr>
+        <% const contractRemarks=["Contract Number","Contact","Contract Amount","P.O. Number",]; %>
+        <% contractRemarks.forEach(header=> { %>
+        <th class="text-left">
+          <%= header %>
+        </th>
+        <% }); %>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <% if (typeof customer.contractNumber !=='undefined' ) { %>
+        <td>
+          <%= customer.contractNumber %>
+        </td>
+        <% } else { %>
+        <td></td>
+        <% } %>
+        <td>
+          <%= customer?.phoneNumber %>
+        </td>
+        <td>
+          <% include("../common/functions.ejs") %>
+          $<%= addTrailingZeros(metaTotal.subTotal) %>
+        </td>
+        <% if (typeof poNo !=='undefined' ) { %>
+        <td>
+          <%= poNo %>
+        </td>
+        <% } else { %>
+        <td></td>
+        <% } %>
+    
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="6" style="text-align: center; background-color: lightgray; font-weight: bold;">
+          Contract Remarks
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+
+</div>

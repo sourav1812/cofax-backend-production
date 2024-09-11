@@ -1,0 +1,43 @@
+<div class="billBox">
+  <table style="margin-left: auto;">
+    <thead class="table-padding">
+      <tr>
+        <th>Invoice Subtotal:</th>
+        <td style="border-bottom: 1px solid black;">
+          $<%= metaTotal?.subTotal %>
+        </td>
+      </tr>
+      <% if (metaTotal && metaTotal.discount) { %>
+        <tr>
+          <th>Discount:</th>
+          <td style="border-bottom: 1px solid black;">
+            <%= metaTotal.discount ? metaTotal.discount : baseAdj %>%
+          </td>
+        </tr>
+        <% } %>
+          <tr>
+            <th>HST:</th>
+            <td style="border-bottom: 1px solid black;">
+              $<%= metaTotal?.hst %>
+            </td>
+          </tr>
+          <tr>
+            <th>Total Tax:</th>
+            <td style="border-bottom: 1px solid black;">
+              $<%= metaTotal?.totalTax %>
+            </td>
+          </tr>
+          <tr>
+            <th>Invoice Total:</th>
+            <td style="border-bottom: 1px solid black; font-weight: bold;">
+              $<%= metaTotal?.total %>
+            </td>
+          </tr>
+    </thead>
+  </table>
+</div>
+<div>
+  <p style="text-align: center; margin-left: auto; text-decoration: underline;">
+    <%= customer?.company?.address+ ", " + customer?.company?.postCode+ ", " + customer?.company?.phoneNumber%>
+  </p>
+</div>

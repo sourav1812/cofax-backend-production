@@ -1,0 +1,68 @@
+<% 
+
+    getName = function(list = [], id) {
+    const data = list.find((it) => it?.id === id);
+    return data?.name || "Not found";
+    }
+
+    convertTime = function(inputTime, time = true) {
+        const inputDate = new Date(inputTime);
+        
+        // Format date
+        const formattedDate = `${(inputDate.getMonth() + 1)
+        .toString()
+        .padStart(2, "0")}/${inputDate
+        .getDate()
+        .toString()
+        .padStart(2, "0")}/${inputDate.getFullYear()}`;
+        
+        // Format time
+        if (time) {
+        const hours = inputDate.getHours() % 12 || 12; // Convert to 12-hour format
+        const formattedTime = `${hours.toString().padStart(2, "0")}:${inputDate
+        .getMinutes()
+        .toString()
+        .padStart(2, "0")}:${inputDate.getSeconds().toString().padStart(2, "0")}
+        ${inputDate.getHours() >= 12 ? "PM" : "AM"}`;
+        
+        return `${formattedDate} ${formattedTime}`;
+        }
+        return formattedDate;
+    }
+
+    FormHead = function() {
+        return [
+            "Meter",
+            "Prev. Date",
+            "Color Meter Read",
+            // "Current Reading",
+            // "Prev. Mono Read",
+            // "Prev. Color Read",
+            "Mono Read",
+            // "Color Read",
+        ]
+    }
+    
+    ItemFormHead = function() {
+        return [
+            "Item Number",
+            "Description",
+            "Qty",
+            "Unit Price",
+            "Ext. Price",
+        ]
+    }
+
+    Parts = function() {
+        return ["Parts/Supplies", "Labor", "Travel", "Tax", "Total"]
+    }
+
+    getItems = function(items) {
+        const Items = items || [];
+        let remainingLen = 6 - Items.length;
+        
+        for (let i = 0; i < remainingLen; i++) { Items.push({}); }
+        return Items;
+    }
+
+%>

@@ -1,0 +1,51 @@
+<div>
+  <table class="border" style="margin-top: 10px;">
+    <thead class="bg-light-gray">
+      <tr>
+        <% const AccountHeader = ["Account No.", "Payment Terms", "Due Date", "Invoice Total", "Balance Due"]; %>
+        <% AccountHeader.forEach(it => { %>
+        <th class="text-left">
+          <%= it %>
+        </th>
+        <% }); %>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <%= customer?.accountNumber %>
+        </td>
+        <td>COD</td>
+        <td>
+          <% 
+              function convertTime(inputTime, includeTime = true) {
+                const inputDate = new Date(inputTime);
+                const formattedDate = `${inputDate.getMonth() + 1}`.padStart(2, '0') +
+                                      `/${inputDate.getDate()}`.padStart(2, '0') +
+                                      `/${inputDate.getFullYear()}`;
+                if (includeTime) {
+                  const hours = inputDate.getHours() % 12 || 12;
+                  const minutes = inputDate.getMinutes().toString().padStart(2, '0');
+                  const seconds = inputDate.getSeconds().toString().padStart(2, '0');
+                  const amPm = inputDate.getHours() >= 12 ? 'PM' : 'AM';
+                  const formattedTime = `${hours}:${minutes}:${seconds} ${amPm}`;
+                  return `${formattedDate} ${formattedTime}`;
+                }
+                return formattedDate;
+              }
+              %>
+          <%= convertTime(dueDate) %>
+        </td>
+        <td>$<%= metaTotal.total ?? 0 %></td>
+        <td style="font-weight: bold;">$<%= metaTotal.balanceDue ?? 0 %></td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="5" class="remark" style="background-color: lightgray;">
+          Invoice Remarks
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>

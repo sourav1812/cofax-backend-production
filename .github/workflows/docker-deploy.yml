@@ -1,0 +1,25 @@
+name: Docker Deploy
+
+on:
+  workflow_run:
+    workflows: ["Create and publish a Docker image"]
+    branches: [main]
+    types: 
+      - completed
+
+jobs:
+
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy
+        uses: MrBitMaster/github-action-ssh-docker-compose@main
+        with:
+          ssh_host: cloud.geeky.dev
+          ssh_user: geekybones
+          docker_compose_filename: /home/geekybones/docker-compose-cofax.yml
+          ssh_private_key: ${{ secrets.GEEKY_HOST_PEM }}
+          pull_before_up: true
+          docker_compose_prefix: cofax
+          service_name: cofax-backend

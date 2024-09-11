@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 30px;
+        }
+
+        h1 {
+            color: #321fdb;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        p {
+            margin: 0 0 15px;
+        }
+
+        .invoice-details {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .invoice-details p {
+            margin: 0;
+        }
+
+        .invoice-details .invoice-id {
+            font-weight: bold;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #5141E0;
+            color: #fff;
+        }
+
+        .total {
+            text-align: right;
+            font-weight: bold;
+        }
+
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 12px;
+            color: #888;
+        }
+
+        .button {
+            display: inline-block;
+            background-color: #5141E0;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #4233A7;
+        }
+
+        .notice {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Invoice</h1>
+        <p>Dear <%= "data?.customer?.name" %>,</p>
+        <p>We hope this email finds you well. Thank you for choosing <%= "data?.customer?.company?.name" %> for your [type
+                of service] needs. Attached, you will find the invoice for the services provided during the month of <%=
+                    "convertDateFormat(data?.createdAt)" %>.</p>
+        <div class="notice">
+            <p><strong>Invoice Details:</strong></p>
+            <p><strong>Invoice Number:</strong>
+                <%= "data?.invoiceNo" %>
+            </p>
+            <p><strong>Invoice Date:</strong>
+                <%= "convertDateFormat(data?.createdAt)" %>
+            </p>
+            <p><strong>Due Date:</strong>
+                <%= "convertDateFormat(data?.dueDate)" %>
+            </p>
+            <p><strong>Total Amount:</strong> $<%= "data?.meterReading?.total" %>
+            </p>
+        </div>
+        <p>To ensure the continuity of our services, we kindly request you to make the payment by the due date mentioned
+            above.</p>
+        <p>If you have already made the payment, please accept our sincere thanks.</p>
+        <p>We appreciate your business and look forward to serving you in the future. If you have any questions or
+            concerns regarding the invoice, feel free to reach out to our billing department at [Billing Contact
+            Email/Phone].</p>
+        <p>Thank you for being a valued customer.</p>
+        <p>Best regards,</p>
+        <p>
+            <%= "data?.customer?.company?.name" %>
+        </p>
+        <p>[Your Contact Information]</p>
+        <div class="footer">
+            <p>For any inquiries, please contact us at info@example.com</p>
+        </div>
+    </div>
+</body>
+</html>
